@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Ratings App</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    /* Some basic styling for demonstration purposes */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .movie {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
 
+  <h1>Movie Ratings App</h1>
+
+  <form id="movieForm">
+    <label for="title">Title:</label>
+    <input type="text" id="title" required>
+
+    <label for="rating">Rating:</label>
+    <input type="number" id="rating" min="1" max="10" required>
+
+    <button type="submit">Add Movie</button>
+  </form>
+
+  <div id="moviesList"></div>
+
+  <script>
+    // Wait for the DOM to be ready
+    $(document).ready(function () {
+
+      // Form submission event
+      $("#movieForm").submit(function (event) {
+        // Prevent the default form submission
+        event.preventDefault();
+
+        // Get values from form inputs
+        let title = $("#title").val();
+        let rating = $("#rating").val();
+
+        // Append movie details to the DOM
+        let movieItem = $("<div class='movie'>").html(`<strong>Title:</strong> ${title}, <strong>Rating:</strong> ${rating}`);
+        let removeButton = $("<button>").text("Remove").click(function () {
+          // Remove the movie item when the button is clicked
+          movieItem.remove();
+        });
+
+        movieItem.append(removeButton);
+        $("#moviesList").append(movieItem);
+
+        // Clear form inputs
+        $("#title, #rating").val("");
+      });
+
+    });
+  </script>
+
+</body>
+</html>
